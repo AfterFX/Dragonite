@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
+import notification from './Notification.component'
 
 export default class AddTutorial extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ export default class AddTutorial extends Component {
       })
       .catch(e => {
         console.log(e);
+        return notification.universal(e.response.data.message, e.response.data.type);
       });
   }
 
