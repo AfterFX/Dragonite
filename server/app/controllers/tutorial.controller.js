@@ -74,17 +74,20 @@ exports.update = (req, res) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was updated successfully."
+          message: "Tutorial was updated successfully.",
+          type: "success"
         });
       } else {
         res.send({
-          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`,
+          type: `error`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + id
+        message: "Error updating Tutorial with id=" + id,
+        type: `error`
       });
     });
 };
@@ -99,11 +102,13 @@ exports.delete = (req, res) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was deleted successfully!"
+          message: "Tutorial was deleted successfully!",
+          type: "success"
         });
       } else {
         res.send({
-          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`,
+          type: "error"
         });
       }
     })
@@ -121,7 +126,10 @@ exports.deleteAll = (req, res) => {
     truncate: false
   })
     .then(nums => {
-      res.send({ message: `${nums} Tutorials were deleted successfully!` });
+      res.send({
+        message: `${nums} Tutorials were deleted successfully!`,
+        type: "success"
+      });
     })
     .catch(err => {
       res.status(500).send({

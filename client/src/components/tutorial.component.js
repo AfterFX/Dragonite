@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
-
+import notification from "../components/Notification.component";
 export default class Tutorial extends Component {
   constructor(props) {
     super(props);
@@ -96,6 +96,7 @@ export default class Tutorial extends Component {
         this.setState({
           message: "The tutorial was updated successfully!"
         });
+        return notification.universal(response.data.message, response.data.type);
       })
       .catch(e => {
         console.log(e);
@@ -107,6 +108,7 @@ export default class Tutorial extends Component {
       .then(response => {
         console.log(response.data);
         this.props.history.push('/tutorials')
+        return notification.universal(response.data.message, response.data.type);
       })
       .catch(e => {
         console.log(e);

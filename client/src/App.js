@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -12,6 +13,7 @@ import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
+
 //Tutorials
 import AddTutorial from "./components/add-tutorial.component";
 import Tutorial from "./components/tutorial.component";
@@ -53,7 +55,7 @@ class App extends Component {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            JWT-CRUD-login-register
+            SportasHD
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">

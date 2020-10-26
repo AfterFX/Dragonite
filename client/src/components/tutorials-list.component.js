@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
 import { Link } from "react-router-dom";
+import notification from './Notification.component'
 
 export default class TutorialsList extends Component {
   constructor(props) {
@@ -65,6 +66,7 @@ export default class TutorialsList extends Component {
       .then(response => {
         console.log(response.data);
         this.refreshList();
+        return notification.universal(response.data.message, response.data.type);
       })
       .catch(e => {
         console.log(e);
