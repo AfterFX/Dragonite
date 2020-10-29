@@ -15,6 +15,8 @@ class notification {
       })
     }
   universal(txt, type) {
+      if(type === undefined)
+      type = "dark"
     return this.notify(txt, type);
   }
 
