@@ -51,7 +51,7 @@ export default class AddTutorial extends Component {
         console.log(response.data);
       })
       .catch(e => {
-        console.log(e);
+        // console.log(e);
         return notification.universal(e.response.data.message, e.response.data.type);
       });
   }
