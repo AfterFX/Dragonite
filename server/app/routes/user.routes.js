@@ -73,7 +73,7 @@ module.exports = function(app) {
 
   // Delete all Tutorials
   app.delete("/api/tutorials/",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken],
     tutorials.deleteAll
   );
 
