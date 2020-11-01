@@ -34,16 +34,24 @@ export default class TutorialsList extends Component {
   }
 
   retrieveTutorials() {
-    TutorialDataService.getAll()
-      .then(response => {
-        this.setState({
-          tutorials: response.data
-        });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    TutorialDataService.getAll().then(
+        response => {
+            this.setState({
+                tutorials: response.data
+            });
+            console.log(response.data);
+        },
+        error => {
+            this.setState({
+                content:
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString()
+            });
+        }
+    );
   }
 
   refreshList() {
@@ -88,8 +96,10 @@ export default class TutorialsList extends Component {
 
   render() {
     const { searchTitle, tutorials, currentTutorial, currentIndex } = this.state;
+    const auth = this.state.content;
 
     return (
+        auth === undefined ? (//check user can see this list?
       <div className="list row">
         <div className="col-md-8">
           <div className="input-group mb-3">
@@ -175,6 +185,13 @@ export default class TutorialsList extends Component {
           )}
         </div>
       </div>
+          ) : (
+            <div className="container">
+              <header className="jumbotron">
+                <h3>{this.state.content}</h3>
+              </header>
+            </div>
+          )
     );
   }
 }
