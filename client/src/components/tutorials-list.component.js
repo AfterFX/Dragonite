@@ -34,24 +34,23 @@ export default class TutorialsList extends Component {
   }
 
   retrieveTutorials() {
-    TutorialDataService.getAll().then(
-        response => {
-            this.setState({
-                tutorials: response.data
-            });
-            console.log(response.data);
-        },
-        error => {
-            this.setState({
-                content:
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString()
-            });
-        }
-    );
+      TutorialDataService.getAll()
+          .then(response => {
+              this.setState({
+                  tutorials: response.data
+              });
+              console.log(response.data);
+          })
+          .catch(e => {
+              this.setState({
+                  content:
+                      (e.response &&
+                          e.response.data &&
+                          e.response.data.message) ||
+                      e.message ||
+                      e.toString()
+              });
+          });
   }
 
   refreshList() {
@@ -77,7 +76,15 @@ export default class TutorialsList extends Component {
         return notification.universal(response.data.message, response.data.type);
       })
       .catch(e => {
-        console.log(e);
+      this.setState({
+          auth:
+              (e.response &&
+                  e.response.data &&
+                  e.response.data.message) ||
+              e.message ||
+              e.toString()
+      });
+        return notification.universal(this.state.auth, "warning");
       });
   }
 
