@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 import "react-toastify/dist/ReactToastify.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -20,6 +21,11 @@ import Tutorial from "./components/tutorial.component";
 import TutorialsList from "./components/tutorials-list.component";
 ///////////
 
+const client = new W3CWebSocket('ws://localhost:8000/', 'echo-protocol');
+client.onerror = function() {
+  console.log('Connection Error');
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +39,48 @@ class App extends Component {
   }
 
   componentDidMount() {
+    //WEBSOCKET START
+
+    // When a connection is made
+    client.onopen = function() {
+      console.log('Opened connection 🎉');
+
+      // send data to the server
+      var json = JSON.stringify({ message: 'Hello 👋' });
+      client.send(json);
+    }
+
+// When data is received
+    client.onmessage = function(event) {
+      console.log("message from server" + event.data);
+    }
+
+// A connection could not be made
+    client.onerror = function(event) {
+      console.log(event);
+    }
+
+// A connection was closed
+    client.onclose = function(code, reason) {
+      console.log(code, reason);
+    }
+    // function sendNumber() {
+    //   if (client.readyState === client.OPEN) {
+    //     var number = Math.round(Math.random() * 0xFFFFFF);
+    //     client.send(number.toString());
+    //     setTimeout(sendNumber, 1000);
+    //   }
+    // }
+    // sendNumber();
+
+// Close the connection when the window is closed
+    window.addEventListener('beforeunload', function() {
+      client.close();
+    });
+//WEBSOCKET END
+
+
+
     const user = AuthService.getCurrentUser();
 
     if (user) {

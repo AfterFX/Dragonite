@@ -14,7 +14,8 @@
     "react-scripts": "^4.0.0",
     "react-toastify": "^6.0.9",
     "react-validation": "^3.0.7",
-    "validator": "^12.2.0"
+    "validator": "^12.2.0",
+    "websocket": "^1.0.32"
   },
   "scripts": {
     "start": "react-scripts start",
