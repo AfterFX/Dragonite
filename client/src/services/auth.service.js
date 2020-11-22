@@ -1,7 +1,8 @@
 import axios from "axios";
+// require('../../.env')
+const config = require('../config')
 
-const API_URL = "http://localhost:8080/api/auth/";
-
+const API_URL = config.URL + "/api/auth/";
 class AuthService {
   login(username, password) {
     return axios

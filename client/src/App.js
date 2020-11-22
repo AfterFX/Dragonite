@@ -4,6 +4,7 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 import "react-toastify/dist/ReactToastify.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import "./App.scss";
 
 import AuthService from "./services/auth.service";
 
@@ -20,8 +21,9 @@ import AddTutorial from "./components/add-tutorial.component";
 import Tutorial from "./components/tutorial.component";
 import TutorialsList from "./components/tutorials-list.component";
 ///////////
+const config = require('./config')
 
-const client = new W3CWebSocket('ws://localhost:8000/', 'echo-protocol');
+const client = new W3CWebSocket(config.W3CWebSocket, 'echo-protocol');
 client.onerror = function() {
   console.log('Connection Error');
 };

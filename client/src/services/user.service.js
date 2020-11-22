@@ -1,23 +1,29 @@
-import axios from 'axios';
+import http from "../http-common";
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/test/';
+
+
+
 
 class UserService {
   getPublicContent() {
-    return axios.get(API_URL + 'all');
+    return http.get("user/all");
   }
 
   getUserBoard() {
-    return axios.get(API_URL + 'user', { headers: authHeader() });
+    return http.get( "user/user", { headers: authHeader() });
   }
 
   getModeratorBoard() {
-    return axios.get(API_URL + 'mod', { headers: authHeader() });
+    return http.get( "user/mod", { headers: authHeader() });
   }
 
   getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() });
+    return http.get( "user/admin", { headers: authHeader() });
+  }
+
+  changeNickname(data) {
+    return http.put( "user/changeUsername", data, { headers: authHeader() });
   }
 }
 

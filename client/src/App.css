@@ -46,3 +46,25 @@ label {
   max-width: 300px;
   margin: auto;
 }
+
+.nicknameInput {
+  border: none;
+  background: none;
+  color: #212529;
+}
+.nicknameForm {
+  display: inline-block;
+}
+.nickname-edit-button {
+  position: relative;
+  /*margin: 0px -138px;*/
+}
+.tex-danger-profile {
+  margin-top: -3px;
+}
+
+
+
+/*input{*/
+/*  transition:width 2.1s;*/
+/*}*/

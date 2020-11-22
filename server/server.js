@@ -5,9 +5,11 @@ const WebSocketServer = require('websocket').server;
 const http = require('http');
 
 const app = express();
+const config = require('./config')
+
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: config.URL
 };
 
 //WEBSOCKET START
@@ -16,7 +18,7 @@ const server = http.createServer(function(request, response) {
   response.writeHead(404);
   response.end();
 });
-server.listen(8000, function() {
+server.listen(config.W3CWebSocketPort, function() {
   console.log((new Date()) + ' Server is listening on port 8080');
 });
 
@@ -112,3 +114,4 @@ function initial() {
     name: "admin"
   });
 }
+// initial();
