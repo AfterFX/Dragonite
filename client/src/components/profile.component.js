@@ -42,6 +42,12 @@ export default class Profile extends Component {
     }));
   };
 
+  //update nickname to localStorage
+  updateNickname(newName) {
+    let user = JSON.parse(localStorage["user"]);
+    user.nickname = newName;
+    return localStorage["user"] = JSON.stringify(user);
+  }
   // setState for new name
   save = (e) => {
     e.preventDefault();
@@ -58,6 +64,7 @@ export default class Profile extends Component {
           nicknameValidate: false,
           requiredValidate: false
         });
+        this.updateNickname(newName)
         return notification.universal(response.data.message, response.data.type);
       }).catch(e => {
         return notification.universal(e.response.data.message, e.response.data.type);
@@ -151,7 +158,7 @@ export default class Profile extends Component {
         <div>
         <header className="jumbotron">
           <h3>
-            <strong>{currentUser.nickname}</strong> Profile
+            <strong>{this.state.nickname}</strong> Profile
           </h3>
         </header>
 
