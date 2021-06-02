@@ -176,10 +176,6 @@ export default class Profile extends Component {
                     disabled={this.state.editMode ? '':'disabled'}
                     inputStyle={this.state.editMode ? {}:{border: "none", color: "#212529", background: "none"}}
                 />
-
-
-
-
               </div>
               {saveBtn}
               {cancelBtn}

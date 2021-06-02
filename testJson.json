@@ -1,0 +1,72 @@
+{
+  "battleStatus": {
+    "isBattleOver": false,
+    "commandQueue": [],
+    "commandMsg": null,
+    "commandIndex": 0,
+    "isDuringTurn": false,
+    "combatants": [
+      {
+        "id": "combatant_001",
+        "name": "Harry Potter",
+        "hp": 104,
+        "maxHp": 104,
+        "attacks": [
+          {
+            "id": "attack_001",
+            "name": "Stupefy",
+            "damage": 20
+          },
+          {
+            "id": "attack_002",
+            "name": "Expelliarmus",
+            "damage": 10
+          },
+          {
+            "id": "attack_003",
+            "name": "Expecto Patronum",
+            "damage": 65
+          }
+        ],
+        "attributes": {
+          "speed": 5,
+          "attack": 10,
+          "defense": 10
+        }
+      },
+      {
+        "id": "combatant_002",
+        "name": "Lord Voldemort",
+        "hp": 200,
+        "maxHp": 200,
+        "attacks": [
+          {
+            "id": "attack_004",
+            "name": "Crucio",
+            "damage": 35
+          },
+          {
+            "id": "attack_005",
+            "name": "Morsmorde",
+            "damage": 20
+          },
+          {
+            "id": "attack_006",
+            "name": "Avada Kedavra",
+            "damage": 9999
+          }
+        ],
+        "attributes": {
+          "speed": 5,
+          "attack": 10,
+          "defense": 10
+        }
+      }
+    ]
+  },
+  "scoreboard": {
+    "battles": 0,
+    "combatant_001": 0,
+    "combatant_002": 0
+  }
+}

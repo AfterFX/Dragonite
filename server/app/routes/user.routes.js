@@ -1,6 +1,6 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
-const { tutorials } = require("../controllers");
+const { tutorials, battle } = require("../controllers");
 
 
 module.exports = function(app) {
@@ -81,6 +81,18 @@ module.exports = function(app) {
   app.delete("/api/tutorials/",
     [authJwt.verifyToken],
     tutorials.deleteAll
+  );
+
+
+  // Render Battle
+  app.get("/api/battle/",
+      [authJwt.verifyToken],
+      battle.loadBattle
+  );
+  app.put(
+      "/api/battle/",
+      [authJwt.verifyToken],
+      battle.attack
   );
 
 };
