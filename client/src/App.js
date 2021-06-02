@@ -21,6 +21,9 @@ import AddTutorial from "./components/add-tutorial.component";
 import Tutorial from "./components/tutorial.component";
 import TutorialsList from "./components/tutorials-list.component";
 ///////////
+
+import Battle from "./components/battle.component";
+
 const config = require('./config')
 
 const client = new W3CWebSocket(config.W3CWebSocket, 'echo-protocol');
@@ -143,9 +146,16 @@ class App extends Component {
                 Tutorials
               </Link>
             </li>
+
             <li className="nav-item">
               <Link to={"/add"} className="nav-link">
                 Add
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link to={"/battle"} className="nav-link">
+                Battle
               </Link>
             </li>
 
@@ -193,6 +203,7 @@ class App extends Component {
             <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
             <Route exact path="/add" component={AddTutorial} />
             <Route path="/tutorials/:id" component={Tutorial} />
+            <Route path="/battle/" component={Battle} />
           </Switch>
         </div>
       </div>
