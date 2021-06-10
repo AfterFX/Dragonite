@@ -155,6 +155,7 @@ loadBattle = (req, res) => {
               player_id: req.userId
           }
       }).then(battle => {
+          if(battle === null) {console.log("cant attack battleQueue is null"); return} //TODO need fix when battleQueue is null
           let playerDealDamage = damage(battle.player_stats.attack);
           let enemyDealDamage = damage(battle.enemy_stats.attack);
 
