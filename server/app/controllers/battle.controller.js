@@ -163,7 +163,6 @@ loadBattle = (req, res) => {
           if (playerDealDamage >= battle.enemy_HP_now) {
               var player_HP_now = battle.player_HP_now, enemyDied = true;
               console.log("enemy died")
-
           } else {
               var player_HP_now = battle.player_HP_now - enemyDealDamage
           }
@@ -180,20 +179,28 @@ loadBattle = (req, res) => {
               enemy_HP_now: enemy_HP_now
           }
           battleQueue.update(HP, {
-              where: {player_id: req.userId}
+              where: {id: battle.id}
           }).then(
-              res.send({
-                  player: {
-                      damage: playerDealDamage,
-                      dead: playerDied
-                  },
-                  enemy: {
-                      damage: enemyDealDamage,
-                      dead: enemyDied
-                  }
-
-              })
-          )
+                  res.send({
+                      player: {
+                          damage: playerDealDamage,
+                          dead: playerDied
+                      },
+                      enemy: {
+                          damage: enemyDealDamage,
+                          dead: enemyDied
+                      }
+                  })
+          ).then(()=> {
+              if (enemyDied === true || playerDied === true){
+                  battleQueue.destroy({where: {id: battle.id}})//delete battle if someone dead. TODO: after destroy need  send data to log(maybe to depict via 'logs' in [REPORT] section)
+              }
+          })
+          // if(enemyDied){
+          //     battleQueue.destroy({
+          //         where: {id: 3}
+          //     })
+          // }
           //how to update minus hp
       })
         //player & enemy need class file.  to calculate stats.
