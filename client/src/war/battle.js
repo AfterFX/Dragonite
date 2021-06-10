@@ -272,10 +272,13 @@ class initBattle { //initiate battle
       target.HP = target.HP - attackResult[window.turn].damage;
       targetHealth.width((target.HP/(target.maxHP))*100+"%");
 
-      let rollProc = this.roll(0,100);
-      if (rollProc < attacker.equipment.weapon.proc.chance) {
-        this.wepProc(attacker, target)
-      }
+
+      //Critical
+      // this need transfer to server.
+      // let rollProc = this.roll(0,100);
+      // if (rollProc < attacker.equipment.weapon.proc.chance) {
+      //   this.wepProc(attacker, target)
+      // }
 
       this.killTarget(target);
 
