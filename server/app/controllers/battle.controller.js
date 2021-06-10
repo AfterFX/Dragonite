@@ -181,18 +181,19 @@ loadBattle = (req, res) => {
           }
           battleQueue.update(HP, {
               where: {player_id: req.userId}
-          })
-          res.send({
-              player: {
-                  damage: playerDealDamage,
-                  dead: playerDied
-              },
-              enemy: {
-                  damage: enemyDealDamage,
-                  dead: enemyDied
-              }
+          }).then(
+              res.send({
+                  player: {
+                      damage: playerDealDamage,
+                      dead: playerDied
+                  },
+                  enemy: {
+                      damage: enemyDealDamage,
+                      dead: enemyDied
+                  }
 
-          });
+              })
+          )
           //how to update minus hp
       })
         //player & enemy need class file.  to calculate stats.
