@@ -95,13 +95,13 @@ export default class Battle extends Component {
                       <div className="battle-field">
                           <div className="player" id={this.state.player.name} data-wep="frozenLance">
                               <div className="health-bar">
-                                  <div className="health"/>
+                                  <div className="health" style={{width: (this.state.player.HP/(this.state.player.maxHP))*100+"%"}}/>
                               </div>
                               <img src="http://ifanzine.com/wp-content/uploads/2011/12/CT1.jpg" alt=""/>
                           </div>
                           <div className="enemy" id={this.state.enemy.name} data-wep="damascusRapier">
                               <div className="health-bar">
-                                  <div className="health"/>
+                                  <div className="health" style={{width: (this.state.enemy.HP/(this.state.enemy.maxHP))*100+"%"}}/>
                               </div>
                               <img
     src="http://img3.wikia.nocookie.net/__cb20130101130113/villains/images/thumb/c/c3/Villain_Ozzie_drawn_ChronoTrigger.png/100px-32,274,0,241-Villain_Ozzie_drawn_ChronoTrigger.png" alt=""/>
