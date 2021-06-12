@@ -95,12 +95,14 @@ export default class Battle extends Component {
                       <div className="battle-field">
                           <div className="player" id={this.state.player.name} data-wep="frozenLance">
                               <div className="health-bar">
+                                  <div className="health-number">{this.state.player.HP}/{this.state.player.maxHP}</div>
                                   <div className="health" style={{width: (this.state.player.HP/(this.state.player.maxHP))*100+"%"}}/>
                               </div>
                               <img src="http://ifanzine.com/wp-content/uploads/2011/12/CT1.jpg" alt=""/>
                           </div>
                           <div className="enemy" id={this.state.enemy.name} data-wep="damascusRapier">
                               <div className="health-bar">
+                                  <div className="health-number">{this.state.enemy.HP}/{this.state.enemy.maxHP}</div>
                                   <div className="health" style={{width: (this.state.enemy.HP/(this.state.enemy.maxHP))*100+"%"}}/>
                               </div>
                               <img

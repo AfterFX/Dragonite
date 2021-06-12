@@ -262,6 +262,7 @@ class initBattle { //initiate battle
   attack(attacker, target, attackResult, skill){
     if (attacker.HP > 0){
       let targetHealth = $("#"+target.name+" .health-bar .health");
+      let targetHealthLeft = $("#"+target.name+" .health-bar .health-number");
       // let initialHealth = target.HP;
 
       this.animateAttacks(attacker, target);
@@ -271,6 +272,7 @@ class initBattle { //initiate battle
 
       target.HP = target.HP - attackResult[window.turn].damage;
       targetHealth.width((target.HP/(target.maxHP))*100+"%");
+      targetHealthLeft.text(target.HP+"/"+target.maxHP);
 
 
       //Critical

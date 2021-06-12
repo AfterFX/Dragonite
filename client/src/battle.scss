@@ -51,6 +51,12 @@ body {
     margin-bottom: 5px;
     background-color: #e03e28;
 
+    .health-number {
+      position: absolute;
+      font-size: 12px;
+      top: 1px;
+      color: #5bc0de;
+    }
     .health {
       position: absolute;
       left: 0;
