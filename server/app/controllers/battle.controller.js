@@ -55,8 +55,8 @@ function generateStats(user){//send data to client & battleQueues
         name: user.nickname,
             level: user.level,
         experience: user.experience,
-        HP: HP(user.health, user.stats.strength),
-        maxHP: HP(user.health, user.stats.strength),
+        HP: HP(user.HP, user.stats.strength),
+        maxHP: HP(user.HP, user.stats.strength),
         stats: {
         strength: user.stats.strength,
             agility: user.stats.agility,
@@ -73,7 +73,8 @@ const NPC_enemy = { //NPC target enemy
     nickname: "Enemy",
     level: 1,
     experience: 0,
-    health: 1000,
+    HP: 1000,
+    maxHP: 1000,
     stats: {
         strength: 38,
         agility: 10,
@@ -112,16 +113,29 @@ loadBattle = (req, res) => {
             id: req.userId
         }
     }).then(user => {
-          global.player = generateStats(user);
-    }).then(() => {
-         global.enemy = generateStats(NPC_enemy);
-        res.send(
-            {
-                player,
-                enemy
-            }
+        //to prepare attacker & defender info to client side
+        global.player = generateStats(user);
+        global.enemy = generateStats(NPC_enemy)
+            battleQueue.findOne({
+                raw: true,
+                where: {
+                    player_id: user.id
+                }
+            }).then(battle =>{
+                if (battle === null) return;
+                global.player.HP = battle.player_HP_now
+                global.player.maxHP = battle.player_HP_max
+                global.enemy.HP = battle.enemy_HP_now
+                global.enemy.maxHP = battle.enemy_HP_max
+            }).then(() => {
+                res.send(
+                    {
+                        player,
+                        enemy
+                    }
 
-        );
+                );
+            })
     })
 
 
