@@ -23,7 +23,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BIGINT,
       defaultValue: 0
     },
-    health:{
+    HP:{
       type: Sequelize.BIGINT,
       defaultValue: 1000
     },
