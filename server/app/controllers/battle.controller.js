@@ -55,8 +55,8 @@ function generateStats(user){//send data to client & battleQueues
         name: user.nickname,
             level: user.level,
         experience: user.experience,
-        HP: HP(user.health, user.stats.strength),
-        maxHP: HP(user.health, user.stats.strength),
+        HP: HP(user.HP, user.stats.strength),
+        maxHP: HP(user.HP, user.stats.strength),
         stats: {
         strength: user.stats.strength,
             agility: user.stats.agility,
@@ -73,7 +73,8 @@ const NPC_enemy = { //NPC target enemy
     nickname: "Enemy",
     level: 1,
     experience: 0,
-    health: 1000,
+    HP: 1000,
+    maxHP: 1000,
     stats: {
         strength: 38,
         agility: 10,
@@ -112,16 +113,29 @@ loadBattle = (req, res) => {
             id: req.userId
         }
     }).then(user => {
-          global.player = generateStats(user);
-    }).then(() => {
-         global.enemy = generateStats(NPC_enemy);
-        res.send(
-            {
-                player,
-                enemy
-            }
+        //to prepare attacker & defender info to client side
+        global.player = generateStats(user);
+        global.enemy = generateStats(NPC_enemy)
+            battleQueue.findOne({
+                raw: true,
+                where: {
+                    player_id: user.id
+                }
+            }).then(battle =>{
+                if (battle === null) return;
+                global.player.HP = battle.player_HP_now
+                global.player.maxHP = battle.player_HP_max
+                global.enemy.HP = battle.enemy_HP_now
+                global.enemy.maxHP = battle.enemy_HP_max
+            }).then(() => {
+                res.send(
+                    {
+                        player,
+                        enemy
+                    }
 
-        );
+                );
+            })
     })
 
 
@@ -155,6 +169,7 @@ loadBattle = (req, res) => {
               player_id: req.userId
           }
       }).then(battle => {
+          if(battle === null) {console.log("cant attack battleQueue is null"); return} //TODO need fix when battleQueue is null
           let playerDealDamage = damage(battle.player_stats.attack);
           let enemyDealDamage = damage(battle.enemy_stats.attack);
 
@@ -163,7 +178,6 @@ loadBattle = (req, res) => {
           if (playerDealDamage >= battle.enemy_HP_now) {
               var player_HP_now = battle.player_HP_now, enemyDied = true;
               console.log("enemy died")
-
           } else {
               var player_HP_now = battle.player_HP_now - enemyDealDamage
           }
@@ -180,20 +194,28 @@ loadBattle = (req, res) => {
               enemy_HP_now: enemy_HP_now
           }
           battleQueue.update(HP, {
-              where: {player_id: req.userId}
+              where: {id: battle.id}
           }).then(
-              res.send({
-                  player: {
-                      damage: playerDealDamage,
-                      dead: playerDied
-                  },
-                  enemy: {
-                      damage: enemyDealDamage,
-                      dead: enemyDied
-                  }
-
-              })
-          )
+                  res.send({
+                      player: {
+                          damage: playerDealDamage,
+                          dead: playerDied
+                      },
+                      enemy: {
+                          damage: enemyDealDamage,
+                          dead: enemyDied
+                      }
+                  })
+          ).then(()=> {
+              if (enemyDied === true || playerDied === true){
+                  battleQueue.destroy({where: {id: battle.id}})//delete battle if someone dead. TODO: after destroy need  send data to log(maybe to depict via 'logs' in [REPORT] section)
+              }
+          })
+          // if(enemyDied){
+          //     battleQueue.destroy({
+          //         where: {id: 3}
+          //     })
+          // }
           //how to update minus hp
       })
         //player & enemy need class file.  to calculate stats.
